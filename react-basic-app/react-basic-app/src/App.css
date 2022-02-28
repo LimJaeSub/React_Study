@@ -24,3 +24,18 @@
   border-bottom:1px dotted #000;
   text-decoration:none;
 }
+input[type="checkbox"]:checked{
+  background: red;
+}
+.formbox{
+  display:flex;
+}
+
+.inputbox{
+  flex:10;
+  padding:5px;
+}
+
+.formbtn{
+  flex:1%;
+}
