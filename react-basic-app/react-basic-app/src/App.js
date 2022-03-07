@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import "./App.css";
-import List from "./components/list";
+import Form from "./components/Form";
+import Lists from "./components/Lists";
 
 
 export default function App(){
@@ -8,13 +9,6 @@ export default function App(){
   const [todoData,setTodoData]= useState([])
   const [value,setValue] = useState("");
   
-
-  
-
-  const handleChange=(e)=>{
-    setValue(e.target.value);
-  };
-
   const handleSubmit=(e)=>{
     e.preventDefault();
 
@@ -28,20 +22,17 @@ export default function App(){
   }
 
   
-
-
   return(
-    <div className="container">
-      <div className="todoBlock">
-        <div className="title"><h1>할 일 목록</h1>
+    <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
+      <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
+        <div className="flex justify-between mb-3">
+          <h1>할 일 목록</h1>
         </div>
         
-        <List todoData={todoData} setTodoData={setTodoData}/>
+        <Lists todoData={todoData} setTodoData={setTodoData}/>
+        <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
           
-        <form className="formbox" onSubmit={handleSubmit}>
-          <input type="text" className="inputbox" name="value" placeholder="해야할 일 입력" value={value} onChange={handleChange}></input>
-          <input type="submit" value="입력" className="formbtn"></input>
-        </form>
+        
       </div>
     </div>
   )

@@ -1,15 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default function List({todoData,setTodoData}){
-
-    const btnStyle={
-        color:"#ffffff",
-        border:"none",
-        padding:"5px 9px",
-        borderRadius:"30px",
-        cursor:"pointer",
-        float:"right"
-    };
+export const List = ({
+    id,title,completed,todoData,setTodoData,provided,snapshot
+}) => {
 
     const handleCompleteChange=(id)=>{
         let newTodoData = todoData.map((data)=>{
@@ -20,34 +13,32 @@ export default function List({todoData,setTodoData}){
         });
         setTodoData(newTodoData);
     };
-
     const handleClick=(id)=>{
         let newTodoData = todoData.filter(data=>data.id!==id);
         setTodoData(newTodoData);
     };
-
-    const getStyle=(completed)=>{
-        return {
-            padding:"10px",
-            borderBottom:"1px #ccc dotted",
-            textDecoration:completed ? "line-through":"none",
-        };
-    };
+  
     
-    return(
-        <div>
-            {todoData.map((data)=>(
-                <div style={getStyle(data.completed)} key={data.id}>
-                    <input type="checkbox" defaultChecked={false} onChange={()=>handleCompleteChange(data.id)}/>
-                    {data.title}
-                    <button style={btnStyle} onClick={()=>handleClick(data.id)}>
-                    x    
-                    </button>
-                </div>
-            ))}
-        </div>
 
-    )
-    
-}
+    return (
+      <div key={id} {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}
+      className={`${snapshot.isDragging?"bg-gray-400":"bg-gray-100"} flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 border rounded`}> 
+          <div className=''>
+              <input type="checkbox" defaultChecked={false} onChange={()=>handleCompleteChange(id)}/>
+              <span className={completed?"line-through":undefined}>
+                  {title}
+              </span>
+          </div>
+          <div className='items-center'>
+              <button className='px-4 py-2 float-right'onClick={()=>handleClick(id)}>
+              x    
+              </button>
+          </div>
+      </div>
+    );
+  
+};
+
+export default List
+
 
