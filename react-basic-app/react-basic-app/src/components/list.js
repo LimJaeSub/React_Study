@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const List = ({
-    id,title,completed,todoData,setTodoData,provided,snapshot
+export const List =React.memo(({
+    id,title,completed,todoData,setTodoData,provided,snapshot,handleClick
 }) => {
-
+    console.log("Lists");
     const handleCompleteChange=(id)=>{
         let newTodoData = todoData.map((data)=>{
           if(data.id===id){
@@ -13,10 +13,7 @@ export const List = ({
         });
         setTodoData(newTodoData);
     };
-    const handleClick=(id)=>{
-        let newTodoData = todoData.filter(data=>data.id!==id);
-        setTodoData(newTodoData);
-    };
+    
   
     
 
@@ -37,7 +34,7 @@ export const List = ({
       </div>
     );
   
-};
+});
 
 export default List
 
