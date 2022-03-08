@@ -1,18 +1,23 @@
-import React,{useState} from "react";
+import React,{useState,useCallback} from "react";
 import "./App.css";
 import Form from "./components/Form";
 import Lists from "./components/Lists";
 
 
 export default function App(){
-  console.log("App")
   const [todoData,setTodoData]= useState([])
   const [value,setValue] = useState("");
 
-  const handleClick=(id)=>{
+  const handleClick=useCallback((id)=>{
     let newTodoData = todoData.filter(data=>data.id!==id);
     setTodoData(newTodoData);
-  };
+  },[todoData]);//TodoData가 변경될 때만 함수 재생성
+
+  const alldeleteClick = useCallback(()=>{
+    let todolength = todoData.length;
+    let cleanData = todoData.slice(todolength);
+    setTodoData(cleanData);
+  },[todoData])
   
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -24,7 +29,10 @@ export default function App(){
     }
     setTodoData(prev=>[...prev,newTodo]);
     setValue("");
-  }
+  };
+  const handleChange=(e)=>{
+    setValue(e.target.value);
+  };
 
   
   return(
@@ -32,10 +40,11 @@ export default function App(){
       <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
         <div className="flex justify-between mb-3">
           <h1>할 일 목록</h1>
+          <button className="allclean" onClick={alldeleteClick}>모두 지우기</button>
         </div>
         
         <Lists handleClick={handleClick} todoData={todoData} setTodoData={setTodoData}/>
-        <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
+        <Form handleSubmit={handleSubmit} handleChange={handleChange} value={value} setValue={setValue}/>
           
         
       </div>

@@ -4,7 +4,6 @@ import List from "./List";
 
 
 const Lists = React.memo( ({todoData,setTodoData,handleClick}) => {
-    console.log("Lists");
 
     const handleEnd=(result)=>{
         console.log(result);

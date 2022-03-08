@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.allclean{
+    width:20%;
+    height:100%;
+    text-align:center;
+    font-size:13px;
+    border-radius: 10px;
+    background-color:#d6d1d1;
+    color:#380404;
+}
+
+.allclean:hover{
+    background-color:yellow;
+}
+.allclean:active{
+    background-color:red;
+}
