@@ -1,2 +1,8 @@
-export const test1 = 10;
-export const test2 = 20;
+let age = 30;
+
+function showAge(){
+    console.log(age);
+    var age = 20;
+}
+
+showAge();
