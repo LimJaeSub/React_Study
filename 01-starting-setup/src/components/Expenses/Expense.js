@@ -4,8 +4,6 @@ import Card from '../UI/Card.js'
 
 function Expense(props){
     const expenses = props.items;
-    console.log(expenses);
-    
     return(
         <Card className="expenses">
             <ExpenseItem 
