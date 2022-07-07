@@ -3,7 +3,7 @@
 import React,{useState} from 'react'
 
 import './ExpenseForm.css';
-function ExpenseForm() {
+function ExpenseForm(props) {
     const [enteredTitle,setEnteredTitle] = useState('');
     const [enteredAmount,setEnteredAmount] = useState('');
     const [enteredDate,setEnteredDate] = useState('');
@@ -50,10 +50,10 @@ function ExpenseForm() {
             date:new Date(enteredDate)//날짜 객체로 변환
         };
 
-        console.log(expenseData);
+        props.onSaveExpenseData(expenseData);
         setEnteredAmount("");
         setEnteredDate("");
-        setEnteredTitle("");
+        setEnteredTitle("");//입력된 폼 지우기
     }
   return (
     <form onSubmit={submitHandler}>
