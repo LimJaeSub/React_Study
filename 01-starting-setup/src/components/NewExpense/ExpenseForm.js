@@ -75,9 +75,15 @@ function ExpenseForm(props) {
                 <input type="Date" value={enteredDate} min="2019-01-01" max="2022-12-31" onChange={dateChangeHandler}/>
             </div>
         </div>
-        <div className='new-expense__actions'>
-            <button type="submit">Add Expense</button>
+        <div className='new-expense__ButtonZone'>
+            <div className='new-expense__Close'>
+                <button>Close</button>
+            </div>
+            <div className='new-expense__actions'>
+                <button type="submit">Add Expense</button>
+            </div>
         </div>
+        
     </form>
   )
 }

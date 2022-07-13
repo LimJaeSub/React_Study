@@ -20,7 +20,13 @@
     width: 20rem;
     max-width: 100%;
   }
-  
+  .new-expense__ButtonZone{
+    display:flex;
+    justify-content: flex-end;
+    flex-wrap:wrap;
+    gap:1rem;
+    text-align:right;
+  }
   .new-expense__actions {
     text-align: right;
   }
