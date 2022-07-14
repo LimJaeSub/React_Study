@@ -55,6 +55,8 @@ function ExpenseForm(props) {
         setEnteredDate("");
         setEnteredTitle("");//입력된 폼 지우기
     }
+
+    
   return (
     <form onSubmit={submitHandler}>
         <div className='new-expense__controls'>
@@ -77,7 +79,7 @@ function ExpenseForm(props) {
         </div>
         <div className='new-expense__ButtonZone'>
             <div className='new-expense__Close'>
-                <button>Close</button>
+                <button onClick={props.onCancel}>Close</button>
             </div>
             <div className='new-expense__actions'>
                 <button type="submit">Add Expense</button>

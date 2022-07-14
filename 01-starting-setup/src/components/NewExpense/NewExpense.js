@@ -15,11 +15,14 @@ function NewExpense(props) {
   const startEditingHandler = ()=>{
     setisEditing(true);
   }
+  const stopEditingHandler =()=>{
+    setisEditing(false);
+  }
 
   return (
     <div className='new-expense'>
       {!isEditing && <button onClick={startEditingHandler}>Add New Expense</button>}
-      {isEditing &&<ExpenseForm onSaveExpenseData={saveExpenseDataHandler}></ExpenseForm>}
+      {isEditing &&<ExpenseForm onCancel={stopEditingHandler} onSaveExpenseData={saveExpenseDataHandler}></ExpenseForm>}
     </div>
   )
 }
