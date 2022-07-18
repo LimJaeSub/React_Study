@@ -17,7 +17,6 @@ function Expense(props){
       });
 
 
-    
 
     return(
         <div>
