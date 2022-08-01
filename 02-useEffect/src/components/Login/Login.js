@@ -45,23 +45,24 @@ const Login = (props) => {
 
   useEffect(()=>{
     console.log('Effect Running');
-  });
+  },[]);
 
   const {isValid:emailIsValid} = emailState;
   const {isValid:passwordIsValid} = passwordState;
+  //우측 객체의 isValid값을 옆의 상수에 할당함
 
   useEffect(()=>{
     const identifier = setTimeout(()=>{
       console.log("checking");
       setFormIsValid(
-        emailState.isValid && passwordState.isValid
+        emailIsValid && passwordIsValid
       );
     },500);
     return ()=>{
       console.log('cleanup');
       clearTimeout(identifier);
     }; 
-  },[emailState,passwordState])
+  },[emailIsValid,passwordIsValid])
   //emali하고 password의 유효성이 변경될 때마다 form의 유효성 검사 
   const emailChangeHandler = (event) => {
     dispatchEmail({type:'UESR_INPUT',val:event.target.value});
