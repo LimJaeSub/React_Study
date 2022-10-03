@@ -12,28 +12,38 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
 
-  useEffect(()=>{
-    const identifier = setTimeout(()=>{
-      setFormIsValid(
-        enteredEmail.includes('@') && enteredPassword.trim().length > 6
-      );
-    },500);
+
+
+  // useEffect(()=>{
+  //   const identifier = setTimeout(()=>{
+  //     setFormIsValid(
+  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
+  //     );
+  //   },500);
     
-    return ()=>{
-      console.log("cleanup!");
-      clearTimeout(identifier);
-    };
-    //처음 실행되는 경우를 제외하고 위 useEffect함수가 실행된 후 cleanup함수 실행
-    //컴포넌트가 리렌더링이나 사라진 후 cleanup함수를 실행한다.
-  },[enteredEmail,enteredPassword]);
-  //둘 중 하나라도 바뀐게 있으면 실행
+  //   return ()=>{
+  //     console.log("cleanup!");
+  //     clearTimeout(identifier);
+  //   };
+  //   //처음 실행되는 경우를 제외하고 위 useEffect함수가 실행된 후 cleanup함수 실행
+  //   //컴포넌트가 리렌더링이나 사라진 후 cleanup함수를 실행한다.
+  // },[enteredEmail,enteredPassword]);
+  // //둘 중 하나라도 바뀐게 있으면 실행
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
+
+    setFormIsValid(
+      event.target.value.includes('@') && enteredPassword.trim().length > 6
+    );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
+
+    setFormIsValid(
+      enteredEmail.includes('@') && event.target.value.trim().length > 6
+    );
   };
 
   const validateEmailHandler = () => {
