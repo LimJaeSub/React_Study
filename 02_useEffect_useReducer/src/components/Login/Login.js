@@ -45,7 +45,6 @@ const Login = (props) => {
     },500);
     
     return ()=>{
-      console.log("cleanup!");
       clearTimeout(identifier);
     };
     //처음 실행되는 경우를 제외하고 위 useEffect함수가 실행된 후 cleanup함수 실행
