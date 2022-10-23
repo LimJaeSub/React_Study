@@ -1,19 +1,13 @@
-import React from 'react'
-import classes from './MealsSummary.module.css';
+import React from "react";
+import classes from "./MealsSummary.module.css";
 function MealsSummary() {
   return (
     <section className={classes.summary}>
-        <h2>Delicious Food, Delivered To you</h2>
-        <p>
-            Choose your favorite meal from our broad selection of available meals
-            and enjoy a delicious lunch or dinner at home.
-        </p>
-        <p>
-            All our meals are cooked with high-quality ingredients, just-in-time and
-            of course by experienced chefs!
-        </p>
+      <h2>제목적을꺼임</h2>
+      <p>요약1</p>
+      <p>요약2</p>
     </section>
-  )
+  );
 }
 
-export default MealsSummary
+export default MealsSummary;
