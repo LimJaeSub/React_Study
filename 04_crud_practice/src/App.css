@@ -1,0 +1,65 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+
+body{
+  background-color:#f6f6f6;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  font-family: 'Jua', sans-serif;
+  min-height:10vh;
+  margin:0px;
+}
+
+
+@media (min-width:650px){
+  .App{
+    width:640px;
+  }
+}
+
+@media (max-width:650px){
+  .App{
+    width:90vw;
+  }
+}
+
+#root {
+  background-color:white;
+  box-shadow:rgba(100,100,111,0.2) 0px 7px 29px 0px;
+}
+
+.App{
+  min-height:100vh;
+  padding:0 20px;
+}
+
+
+/* button */
+.buttons{
+  cursor: pointer;
+  border:none;
+  border-radius: 5px;
+
+  padding: 10px 20px 10px 20px;
+
+  font-size:18px;
+
+  white-space:nowrap;
+  font-family: 'Jua', sans-serif;
+}
+
+.buttons_default{
+  background-color:#ececec;
+  color:black;
+}
+.buttons_positive{
+  background-color:#64c964;
+  color:white;
+}
+.buttons_negative{
+  background-color:#fd565f;
+  color:white;
+}
