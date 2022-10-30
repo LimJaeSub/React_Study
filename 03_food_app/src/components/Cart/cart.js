@@ -18,6 +18,8 @@ function Cart(props) {
     // spread를 통해 기존 객체를 복사하고 amount를 1로 수정 해줘야 하나씩 늘어난다.
     // 만약 기존 객체 그대로 넣어주면 함수가 작동할때마다 이전 값이 더해져서 두배가 됨.
   };
+
+  
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {ctx.items.map((it) => (

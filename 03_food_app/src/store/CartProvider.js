@@ -6,6 +6,8 @@ const defaultCartState = {
   items: [],
   totalAmount: 0,
 };
+
+
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
     console.log("add");
@@ -80,6 +82,7 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = (props) => {
+
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
