@@ -1,37 +1,65 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 
 function App() {
-  const [moives, setMovies] = useState([]);
-  function fetchMoviesHandler() {
-    fetch("https://swapi.dev/api/films/")
-      .then((response) => {
-        return response.json(); // json 파일을 자바스크립트 객체로 변환시켜주는 메소드
-      })
-      .then((data) => {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoding] = useState(false);
+  const [error,setError] = useState(null);
+
+
+  // @useCallback을 사용해 불필요하게 재생성되는 경우 방지
+  const fetchMoviesHandler=useCallback(async()=>
+    {
+      setIsLoding(true);
+      setError(null);
+
+      try{
+        const response = await fetch("https://swapi.dev/api/films/");
+        if(!response.ok){
+          throw new Error('somethin went wrong');
+        }
+        const data = await response.json();
+
+
+        // @ response.ok => 응답이 잘 왔는지 확인하는것
+        // throw new Error => 예외를 발생시키는것, 예외가 발생하면 함수가 중지되고 catch문으로 넘어감
+        // response.ok가 false(무언가 문제가 발생)이면 throw로 예외를 발생시키고 catch문으로 전달한다.
         const transformedMovies = data.results.map((movieData) => {
-          return {
-            id: movieData.episode_id,
-            title: movieData.title,
-            openingText: movieData.opening_crawl,
-            releaseDate: movieData.release_date,
-          };
-        });
+            return {
+              id: movieData.episode_id,
+              title: movieData.title,
+              openingText: movieData.opening_crawl,
+              releaseDate: movieData.release_date,
+            };
+          });
         setMovies(transformedMovies);
-      });
-    // @ fetch api, 사용자가 전달하려는 url주소를 문자열로 전달
-    // HTTP 요청은 비동기 작업, 즉시 완료되는 작업이 아님
-    // then < 응답을 받을때 호출하는 함수
-    // catch < 잠재적 오류 처리 함수
+        setIsLoding(false);
+      } catch(error){
+        setError(error.message);
+        setIsLoding(false); // 오류가 발생하면 로딩은 항상 중단
+      }
+    
+    }
+  ,[]);
+  
+  useEffect(()=>{
+    fetchMoviesHandler();
+  },[fetchMoviesHandler]) 
 
-    // api는 데이터를 json형식으로 전송함
+  let content = <p>fount no movies</p>
 
-    // 1.url에서 data를 받아온다
-    // 2.받아오면 해당 응답을 자바스크립트 객체로 변환시킨다(then(response.json()))
-    // 3.변환시키면 해당 데이터를 map 메소드를 통해 새로운 객체로 변환한다.
-    // 4.setState를 통해 상태 변경
+  if(movies.length>0){
+    // @ movies가 잘 들어왔으면
+    content = <MoviesList movies={movies} />
+  }
+  if(error){
+    content = <p>{error}</p>
+  }
+  if(isLoading){
+    // @ 로딩중이면
+    content = <p>Loading...</p>
   }
 
   return (
@@ -40,7 +68,7 @@ function App() {
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
       <section>
-        <MoviesList movies={moives} />
+        {content}
       </section>
     </React.Fragment>
   );
