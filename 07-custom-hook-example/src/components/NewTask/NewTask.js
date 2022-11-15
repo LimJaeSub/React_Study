@@ -1,13 +1,25 @@
-import { useState } from 'react';
+
 
 import Section from '../UI/Section';
 import TaskForm from './TaskForm';
+import usehttp from '../../hooks/use-http';
 
 const NewTask = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const {isLoading,error,sendRequest:sendTaskRequest} = usehttp();
+  // @ sendTastRequest == sendRequest(requestconfig)
 
   const enterTaskHandler = async (taskText) => {
+
+    sendTaskRequest({
+      url:'https://customhook-b2809-default-rtdb.firebaseio.com//tasks.json',
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({ text: taskText })
+    })
+
+    
     setIsLoading(true);
     setError(null);
     try {
