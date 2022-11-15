@@ -1,15 +1,15 @@
-import {useState} from 'react';
+import {useState,useCallback} from 'react';
 
 // @ requestConfig라는 객체를 이용(하단의 customhook에서 사용할 정보 담음)
 // @ applyData : 데이터 전달 함수 
-const useHttp=(requestConfig,applyData)=>{
+const useHttp=(applyData)=>{
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
     // @ 데이터 통신을 관여하는 함수
     // @ 데이터를 받아와 get/post 모두 할수 있어야함
     // 동시에 로딩과 오류라는 상태를 관리해야함
-  const sendRequest = async () => {
+  const sendRequest = useCallback(async (requestConfig) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -38,7 +38,7 @@ const useHttp=(requestConfig,applyData)=>{
       setError(err.message || 'Something went wrong!');
     }
     setIsLoading(false);
-  };
+  },[applyData]);
 
   return {
     isLoading:isLoading,
