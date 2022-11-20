@@ -3,35 +3,46 @@ import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
+
+import {useEffect,useState} from 'react';
+
 
 function AvailableMeals() {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [meals,setMeals] = useState([]);
+  const [isLoading,setIsLoading] = useState(false);
+  useEffect(()=>{
+    const fetchmeals = async()=>{
+      setIsLoading(true);
+      const response = await fetch('https://foodapp-6cc4a-default-rtdb.firebaseio.com/meals.json'); // data 응답 받아오가
+      const responseData = await response.json(); // 응답을 객체로 변환
+
+      const loadedMeal = [];
+      for(const key in responseData){
+        loadedMeal.push({
+          id:key,
+          name:responseData[key].name,
+          description:responseData[key].description,
+          price:responseData[key].price,
+        })
+      }
+      // 객체로 반환된 것을 새 배열에 입력
+
+      setMeals(loadedMeal); // 새 배열을 state를 이용해 meals로 변경
+      setIsLoading(false);
+    }
+    
+    fetchmeals();
+    
+  },[])
+
+  if(isLoading){
+    return(
+      <section className={classes.MealsLoading}>
+        <p>Loading....</p>
+      </section>
+    )
+  }
+  const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}
