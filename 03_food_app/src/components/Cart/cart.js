@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem.js";
+import Checkout from "./Checkout";
 
 function Cart(props) {
+  const [isCheckout,setIsCheckout] = useState(false);
+
+
   const ctx = useContext(CartContext);
 
   const totalAmount = `$${ctx.totalAmount.toFixed(2)}`; // @ context에서 받아온 totalAmount
@@ -18,6 +22,10 @@ function Cart(props) {
     // spread를 통해 기존 객체를 복사하고 amount를 1로 수정 해줘야 하나씩 늘어난다.
     // 만약 기존 객체 그대로 넣어주면 함수가 작동할때마다 이전 값이 더해져서 두배가 됨.
   };
+
+  const orderHandler = ()=>{
+    setIsCheckout(true);
+  }
 
   
   const cartItems = (
@@ -34,6 +42,15 @@ function Cart(props) {
       ))}
     </ul>
   );
+
+  const downbuttons = (<div className={classes.actions}>
+    <button className={classes.button} onClick={props.onClose}>
+      Close
+    </button>
+    {hasItems && <button className={classes.button} onClick={orderHandler}>order</button>}
+    </div>)
+
+
   // @ function.bind()를 통해 함수와 인자 모두를 넘겨줄수 있다.
   return (
     <Modal onClose={props.onClose}>
@@ -42,12 +59,9 @@ function Cart(props) {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button className={classes.button} onClick={props.onClose}>
-          Close
-        </button>
-        {hasItems && <button className={classes.button}>order</button>}
-      </div>
+      {isCheckout && <Checkout onCancel={props.onClose}/>}
+      {!isCheckout && downbuttons}
+      
     </Modal>
   );
 }
