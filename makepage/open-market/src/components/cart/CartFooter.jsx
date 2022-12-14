@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./cart.module.css";
-function CartFooter() {
+function CartFooter({ checkLists, cart, sum }) {
   return (
     <div>
       <div className={styles.total}>
         <div className={styles.total_price}>
           <p className={styles.cart_product_total_price}>총 상품금액</p>
-          <p className={styles.cart_product_price}>0</p>
+          <p className={styles.cart_product_price}>{sum}</p>
         </div>
         <div className={styles.pay_minus}>
           <img src="/images/icon-minus-line.svg" alt="minus" />
@@ -25,7 +25,7 @@ function CartFooter() {
 
         <div className={styles.payment}>
           <p className={styles.cart_prouct_payment}>결제 예정 금액</p>
-          <p className={styles.cart_prouct_payment_price}>0</p>
+          <p className={styles.cart_prouct_payment_price}>{sum}</p>
         </div>
       </div>
     </div>
